@@ -14,6 +14,15 @@ use App\Http\Controllers\FileUploadController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [FileUploadController::class, 'uploadForm']);
+Route::get('/upload', [FileUploadController::class, 'uploadForm']);
+Route::post('/upload', [FileUploadController::class, 'uploadPost'])->name('file.upload.post');
+Route::get('/list-files', [FileUploadController::class, 'listFiles']);
+
+Route::get('/get-signed-url/{filename}', [FileUploadController::class, 'getSignedUrl'])
+    ->where('filename', '.*')
+    ->name('signed-url');
